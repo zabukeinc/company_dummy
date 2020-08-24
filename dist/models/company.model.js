@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Company = exports.CompanySchema = void 0;
-require("../config/database");
 const mongoose = require("mongoose");
 exports.CompanySchema = new mongoose.Schema({
-    company_name: { type: String },
+    company_name: { type: String, required: true },
     address: { type: String },
     province: { type: String },
     postal_code: { type: Number },

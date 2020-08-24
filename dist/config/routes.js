@@ -7,7 +7,20 @@ class Routes {
         this.companyController = new company_controller_1.CompanyController();
     }
     routes(app) {
-        app.route("/compnay").get(this.companyController.index);
+        app
+            .route("/company")
+            .get(this.companyController.index)
+            .post(this.companyController.create);
+        app
+            .route("/company/:id")
+            .put(this.companyController.update)
+            .delete(this.companyController.delete);
+        app.all("*", function (req, res) {
+            res.status(404).send({
+                status: false,
+                message: "Endpoint not found",
+            });
+        });
     }
 }
 exports.Routes = Routes;

@@ -1,4 +1,3 @@
-// import { db } from "../config/database";
 import * as mongoose from "mongoose";
 
 export interface CompanyInterface extends mongoose.Document {
