@@ -13,7 +13,7 @@ export interface CompanyInterface extends mongoose.Document {
 }
 
 export const CompanySchema: mongoose.Schema = new mongoose.Schema({
-  company_name: { type: String, required: true },
+  company_name: { type: String, required: true, unique: true },
   address: { type: String },
   province: { type: String },
   postal_code: { type: Number },
