@@ -8,12 +8,47 @@ class CompanyController {
             if (err) {
                 res.send(err);
             }
-            res.status(200).send({
-                status: true,
-                message: "Get all data company",
-                data: company,
-            });
+            if (company) {
+                res.status(200).send({
+                    status: true,
+                    message: "Get all data company",
+                    data: company,
+                });
+            }
+            else {
+                res.status(200).send({
+                    status: true,
+                    message: "Data is empty",
+                    data: company,
+                });
+            }
         });
+    }
+    show(req, res) {
+        const companyId = req.params.id;
+        if (companyId) {
+            company_model_1.Company.findById(companyId, (err, company) => {
+                if (err) {
+                    res.status(404).send({
+                        status: false,
+                        message: "Company not found",
+                    });
+                }
+                if (company) {
+                    res.status(200).send({
+                        status: true,
+                        message: "Get data by ID",
+                        data: company,
+                    });
+                }
+            });
+        }
+        else {
+            res.status(500).send({
+                status: false,
+                message: "Company ID can not be null.",
+            });
+        }
     }
     create(req, res) {
         const newCompany = new company_model_1.Company(req.body);
@@ -37,9 +72,9 @@ class CompanyController {
         if (companyId) {
             company_model_1.Company.findByIdAndUpdate(companyId, req.body, (error, company) => {
                 if (error) {
-                    res.status(500).send({
+                    res.status(404).send({
                         status: false,
-                        message: error,
+                        message: "Company not found",
                     });
                 }
                 // if company exist/found
@@ -47,12 +82,6 @@ class CompanyController {
                     res.status(200).send({
                         status: true,
                         message: "Data has been updated",
-                    });
-                }
-                else {
-                    res.status(404).send({
-                        status: false,
-                        message: "Data Company not found",
                     });
                 }
             });
@@ -76,15 +105,9 @@ class CompanyController {
                 }
                 // if company exist/found
                 if (deleted) {
-                    res.status(200).send({
+                    res.status(204).send({
                         status: true,
                         message: "Data successfully deleted.",
-                    });
-                }
-                else {
-                    res.status(404).send({
-                        status: false,
-                        message: "Data company not found",
                     });
                 }
             });

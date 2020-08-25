@@ -8,11 +8,19 @@ export class CompanyController {
       if (err) {
         res.send(err);
       }
-      res.status(200).send({
-        status: true,
-        message: "Get all data company",
-        data: company,
-      });
+      if (company) {
+        res.status(200).send({
+          status: true,
+          message: "Get all data company",
+          data: company,
+        });
+      } else {
+        res.status(200).send({
+          status: true,
+          message: "Data is empty",
+          data: company,
+        });
+      }
     });
   }
 
@@ -21,9 +29,9 @@ export class CompanyController {
     if (companyId) {
       Company.findById(companyId, (err: Error, company: any) => {
         if (err) {
-          res.status(500).send({
+          res.status(404).send({
             status: false,
-            message: err.message,
+            message: "Company not found",
           });
         }
 
@@ -32,11 +40,6 @@ export class CompanyController {
             status: true,
             message: "Get data by ID",
             data: company,
-          });
-        } else {
-          res.status(404).send({
-            status: false,
-            message: "Company not found",
           });
         }
       });
@@ -73,9 +76,9 @@ export class CompanyController {
         req.body,
         (error: Error, company: any) => {
           if (error) {
-            res.status(500).send({
+            res.status(404).send({
               status: false,
-              message: error,
+              message: "Company not found",
             });
           }
           // if company exist/found
@@ -83,11 +86,6 @@ export class CompanyController {
             res.status(200).send({
               status: true,
               message: "Data has been updated",
-            });
-          } else {
-            res.status(404).send({
-              status: false,
-              message: "Data Company not found",
             });
           }
         }
@@ -113,14 +111,9 @@ export class CompanyController {
 
         // if company exist/found
         if (deleted) {
-          res.status(200).send({
+          res.status(204).send({
             status: true,
             message: "Data successfully deleted.",
-          });
-        } else {
-          res.status(404).send({
-            status: false,
-            message: "Data company not found",
           });
         }
       });

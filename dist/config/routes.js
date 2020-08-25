@@ -8,11 +8,12 @@ class Routes {
     }
     routes(app) {
         app
-            .route("/company")
+            .route("/api/company")
             .get(this.companyController.index)
             .post(this.companyController.create);
         app
-            .route("/company/:id")
+            .route("/api/company/:id")
+            .get(this.companyController.show)
             .put(this.companyController.update)
             .delete(this.companyController.delete);
         app.all("*", function (req, res) {
