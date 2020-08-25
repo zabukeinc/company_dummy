@@ -13,7 +13,10 @@ export interface CompanyInterface extends mongoose.Document {
 }
 
 export const CompanySchema: mongoose.Schema = new mongoose.Schema({
-  company_name: { type: String, required: true, unique: true },
+  company_name: {
+    type: String,
+    required: true,
+  },
   address: { type: String },
   province: { type: String },
   postal_code: { type: Number },
@@ -23,6 +26,12 @@ export const CompanySchema: mongoose.Schema = new mongoose.Schema({
   email: { type: String },
   site_address: { type: String },
 });
+
+// unique validation for company name
+CompanySchema.path("company_name").validate(async (value) => {
+  const isNameExisted = await Company.countDocuments({ company_name: value });
+  return !isNameExisted;
+}, "Company name already exist");
 
 export const Company = mongoose.model<CompanyInterface>(
   "Company",
