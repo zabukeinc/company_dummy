@@ -16,6 +16,38 @@ export class CompanyController {
     });
   }
 
+  public show(req: Request, res: Response) {
+    const companyId: any = req.params.id;
+    if (companyId) {
+      Company.findById(companyId, (err: Error, company: any) => {
+        if (err) {
+          res.status(500).send({
+            status: false,
+            message: err.message,
+          });
+        }
+
+        if (company) {
+          res.status(200).send({
+            status: true,
+            message: "Get data by ID",
+            data: company,
+          });
+        } else {
+          res.status(404).send({
+            status: false,
+            message: "Company not found",
+          });
+        }
+      });
+    } else {
+      res.status(500).send({
+        status: false,
+        message: "Company ID can not be null.",
+      });
+    }
+  }
+
   public create(req: Request, res: Response) {
     const newCompany = new Company(req.body);
     newCompany.save((err: Error, company: MongooseDocument) => {

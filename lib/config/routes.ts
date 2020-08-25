@@ -13,6 +13,7 @@ export class Routes {
 
     app
       .route("/company/:id")
+      .get(this.companyController.show)
       .put(this.companyController.update)
       .delete(this.companyController.delete);
 
