@@ -11,17 +11,17 @@ First, you need to run mongodb client on your machine
 
 <b>b. Endpoint </b> <br>
 Get all data company (GET)
-<i>http://localhost:3000/company</i>
+<i>http://localhost:3000/api/company</i>
 
 Get specific data company (GET)
-<i>http://localhost:3000/company/:id</i>
+<i>http://localhost:3000/api/company/:id</i>
 
 Insert data company (POST)
 parameter: body
-<i>http://localhost:3000/company/</i>
+<i>http://localhost:3000/api/company/</i>
 
 Update data company (PUT)
-<i>http://localhost:3000/company/:id</i>
+<i>http://localhost:3000/api/company/:id</i>
 
 Delete data company (DELETE)
-<i>http://localhost:3000/company/:id</i>
+<i>http://localhost:3000/api/company/:id</i>
